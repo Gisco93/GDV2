@@ -30,8 +30,10 @@ $\begin{pmatrix} 0\\1 \end{pmatrix} \rightarrow \begin{pmatrix}4\\7 \end{pmatrix
 \begin{pmatrix} 0\\0 \end{pmatrix} \rightarrow \begin{pmatrix} 4\\4\end{pmatrix} \rightarrow \begin{pmatrix} 1/7\\1/7 \end{pmatrix}\\
 \begin{pmatrix} 0\\-1 \end{pmatrix} \rightarrow \begin{pmatrix} 4\\0 \end{pmatrix} \rightarrow \begin{pmatrix} 1/7\\-1 \end{pmatrix}\\$
 
+\includegraphics[scale=0.25]{1a_Zeichnung_J.jpg}
+
 \subsubsection{2 Punkte}
-Ein Punkt $p$ mit einer $AABB(m,M)$ und Bildtiefe $b$ auf den Punkt $p*$. Daraus folgt das es ein $q\in[0.2^b-1]$ gibt, sodass $dekomprimierung(q) = p_q = p^*$. Der maximale Fehler entsteht nun wenn ein Nachbarpunkt $p_{q+1}$ dekomprimiert wird. Der Abstand von $p_q$ un $p_{q+1}$ ist:\\
+Ein Punkt $p$ mit einer $AABB(m,M)$ und Bildtiefe $b$ auf den Punkt $p^*$. Daraus folgt das es ein $q\in[0.2^b-1]$ gibt, sodass $dekomprimierung(q) = p_q = p^*$. Der maximale Fehler entsteht nun wenn ein Nachbarpunkt $p_{q+1}$ dekomprimiert wird. Der Abstand von $p_q$ un $p_{q+1}$ ist:\\
 $$|p_{q+1}-p_q|_2 = |\frac{1}{2^b-2^0}(M-m)|_2$$
 $p$ wird auf $q$ abgebildet wird, folgt das $p$ auf $p^*$ abgebildet damit gilt für den maximalen Fehler:\\
 $$Fehler_{kompression} = | p - p^*|_2 \leq |\frac{1}{2} \frac{1}{2^b-2^0}(M-m)|_2 $$
