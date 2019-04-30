@@ -8,9 +8,60 @@
 
 \subsection{Octahedron Normalen Kompression (5 Punkte)}
 \subsubsection{1}
-
+$f: S^{2} \rightarrow S^{1}$\\
+$f(x) = \lambda * x$\\
+Berechnung von $\lambda$\\
+\\
+$\lambda(|x_{1}| + |x_{2}| + |x_{3}|) = \sqrt{x_{1}^{2} + x_{2}^{2} + x_{3}^{2}}$\\
+$\lambda(|x_{1}| + |x_{2}| + |x_{3}|) = 1$\\
+$\lambda = \frac{1}{|x_{1}| + |x_{2}| + |x_{3}|}$\\
+\\
+$ f(x) = \lambda * x = \frac{x}{|x_{1}| + |x_{2}| + |x_{3}|}$
 \subsubsection{2}
-
+$n_{3} = 1 - |x_{1}| - |x_{2}|$
 \subsubsection{1}
-
+$S_{+}: S_{+}^{2} \rightarrow [-1, +1]^{2}$\\
+$s_{+}(x) = \begin{pmatrix}
+\frac{x_{1}}{|x_{1}| + |x_{2}| + |x_{3}|} \\ 
+\frac{x_{2}}{|x_{1}| + |x_{2}| + |x_{3}|}
+\end{pmatrix} $\\
+\\
+\\
+$S_{+}^{-1}: [-1, +1]^{2} \rightarrow S_{+}^{2}$\\
+$S_{+}^{-1}(n) = \begin{pmatrix}
+\frac{n_{1}}{\sqrt{n_{1}^{2} + n_{2}^{2} + (1 - |n_{1}| - |n_{2}|)}} \\ 
+\frac{n_{2}}{\sqrt{n_{1}^{2} + n_{2}^{2} + (1 - |n_{1}| - |n_{2}|)}} \\ 
+\frac{1 - |n_{1}| - |n_{2}|}{\sqrt{n_{1}^{2} + n_{2}^{2} + (1 - |n_{1}| - |n_{2}|)}}
+\end{pmatrix} $
+\subsection{2}
+$h(x) = \begin{cases}
+\begin{pmatrix}
+1 \\ 
+1
+\end{pmatrix} - \begin{pmatrix}
+x_{1} \\ 
+x_{2}
+\end{pmatrix}   & \text{für} \quad x_{1} > 0 \land x_{2} > 0 \\
+\begin{pmatrix}
+-1 \\ 
+1
+\end{pmatrix} + \begin{pmatrix}
+-x_{1} \\ 
+-x_{2}
+\end{pmatrix}   & \text{für} \quad x_{1} < 0 \land x_{2} > 0 \\
+\begin{pmatrix}
+1 \\ 
+-1
+\end{pmatrix} + \begin{pmatrix}
+-x_{1} \\ 
+-x_{2}
+\end{pmatrix}   & \text{für} \quad x_{1} > 0 \land x_{2} < 0 \\
+\begin{pmatrix}
+-1 \\ 
+-1
+\end{pmatrix} - \begin{pmatrix}
+x_{1} \\ 
+x_{2}
+\end{pmatrix}   & \text{für} \quad x_{1} < 0 \land x_{2} < 0
+\end{cases}$
 
