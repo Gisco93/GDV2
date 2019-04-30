@@ -33,6 +33,18 @@ $\begin{pmatrix} 0\\1 \end{pmatrix} \rightarrow \begin{pmatrix}4\\7 \end{pmatrix
 \includegraphics[height=9cm]{1a_Zeichnung_J.jpg}
 
 \subsubsection{2 Punkte}
-
+Ein Punkt $p$ mit einer $AABB(m,M)$ und Bildtiefe $b$ auf den Punkt $p*$. Daraus folgt das es ein $q\in[0.2^b-1]$ gibt, sodass $dekomprimierung(q) = p_q = p^*$. Der maximale Fehler entsteht nun wenn ein Nachbarpunkt $p_{q+1}$ dekomprimiert wird. Der Abstand von $p_q$ un $p_{q+1}$ ist:\\
+$$|p_{q+1}-p_q|_2 = |\frac{1}{2^b-2^0}(M-m)|_2$$
+$p$ wird auf $q$ abgebildet wird, folgt das $p$ auf $p^*$ abgebildet damit gilt für den maximalen Fehler:\\
+$$Fehler_{kompression} = | p - p^*|_2 \leq |\frac{1}{2} \frac{1}{2^b-2^0}(M-m)|_2 $$
+Der mittlere Fehler ist dann die Hälfte davon.
 \subsubsection{1 Punkt}
+$$ 0.5 \leq \frac{1}{2} \frac{1}{2^b-2^0}\cdot5450 $$\\
+$$ 1 \leq  \frac{1}{2^b-2^0}\cdot5450$$\\
+$$ \frac{1}{5450} \leq  \frac{1}{2^b-2^0}$$\\
+$$ 5450 \geq  2^b-1$$\\
+$$ 5451 \geq  2^b$$\\
+$$ \log(5451) \geq  \log(2)\cdot b$$\\
+$$ \approx 12,45 \geq  b$$\\
+Damit werden mindestens 13 Bit benötigt.
 
