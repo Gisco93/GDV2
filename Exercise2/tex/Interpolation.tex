@@ -101,30 +101,42 @@ level 1/.style={sibling distance=15mm},edge from parent/.style={-,draw},>=latex,
        \draw[-, draw] (c222) -- (c221);
        \draw[-, draw] (c11111) -- (c222);
 \end{tikzpicture}\\
-$P_{N}(t) = 0 + 1(t - t_{0}) - 3(t - t_{0})(t - t_{1}) = t - 1 - 3(t - 1)(t - 3) = -3t^{2} + 13t - 10$\\
+$$P_{N}(t) = \begin{pmatrix}1\\0\end{pmatrix} +\begin{pmatrix}1\\1\end{pmatrix}*t + \begin{pmatrix}-\frac{3}{8}\\0\end{pmatrix}*t(t-2)$$
+$$ = \begin{pmatrix}
+\dfrac{-3}{8}t^2 +\dfrac{7}{4}t + 1\\
+t
+\end{pmatrix} $$
 Das Polynom $P_{N}(t)$ ist identisch $P_{M}(t)$ und $P_{L}(t)$.
 \subsubsection{2 Punkte}
 Die Newton-Darstellung lässt sich am einfachsten erweitern, da man dem Dreiecksschema ohne viel Aufwand eine neue Stützstelle hinzufügen kann. \\
 \begin{tikzpicture}[grow=left,
-level 1/.style={sibling distance=15mm},edge from parent/.style={<-,draw},>=latex]
+level 1/.style={sibling distance=15mm},edge from parent/.style={-,draw},>=latex, level 3/.style={edge from child/.style={->,draw},sibling distance=15mm}]
 
-\node[root] {$\begin{pmatrix}-\frac{3}{8}\\0\end{pmatrix}$}
-     child {node[level 2] (c1) {$\begin{pmatrix}1\\1\end{pmatrix}$}
-           child {node[level 2] (c11) {$\begin{pmatrix}1\\0\end{pmatrix}$}
-                 child {node[level 2] (c111) {$\delta_{[x_0]}$}}
-                 child {node[level 2] (c112) {$\delta_{[x_1]}$}}
+\node[root] {$\begin{pmatrix}\frac{23}{24}\\0\end{pmatrix}$}
+     child {node[level 2] (c1) {$\begin{pmatrix}-\frac{3}{8}\\0\end{pmatrix}$}
+           child {node[level 2] (c11) {$\begin{pmatrix}+1\\+1\end{pmatrix}$}
+                 child {node[level 3] (c111) {$0$}}
              }
-       child {node[level 2] (c12) {$\delta_{[x_1,x_2]}$}
-      		child {node[level 2] (c221) {$\delta_{[x_1]}$}}
-      		child {node[level 2] (c222) {$\delta_{[x_2]}$}}
+       child {node[level 2] (c21) {$\begin{pmatrix}-\frac{1}{2}\\1\end{pmatrix}$}
+       		child {node[level 2] (c31) {$\begin{pmatrix}3\\2\end{pmatrix}$}
+       			child {node[level 3] (c112) {$2$}
+      				child {node[level 3] (c1111) {$2$}
+      					child {node[level 3] (c11111) {$4$}}
+      				}
+      				child {node[level 3] (c222) {$2$}}
+      			}
+      		}
              }
        }
- child {node[level 2] (c2) {$\delta_{[x_1,x_2,x_3]}$}
-       child {node[level 2] (c21) {$\delta_{[x_1,x_2]}$}}
-       child {node[level 2] (c22) {$\delta_{[x_2,x_3]}$}
-             child {node[level 2] (c221) {$\delta_{[x_2]}$}}
-             child {node[level 2] (c222) {$\delta_{[x_3]}$}}
+ child {node[level 2] (c2) {$\begin{pmatrix}+\frac{15}{2}\\0\end{pmatrix}$}
+       child {node[level 2] (c21) {$\begin{pmatrix}-\frac{1}{2}\\1\end{pmatrix}$}}
+       child {node[level 2] (c22) {$\begin{pmatrix}+2\\+1\end{pmatrix}$}
+              		child {node[level 2] (c31) {$\begin{pmatrix}3\\2\end{pmatrix}$}
+             			child {node[level 3] (c221) {$4$}}
+            		}
              }
        };
-\end{tikzpicture}
+
+\end{tikzpicture}\\
+
 $P_{N}(t) = -3t^{2} + 13t - 10 - \dfrac{13}{6}(t - 1)(t - 3)(t-2) = -\dfrac{13}{6}t^{3} + 10t^{2} - \dfrac{65}{6}t + 3$
