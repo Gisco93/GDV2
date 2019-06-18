@@ -17,28 +17,30 @@
 
 #include <GL/glut.h>
 
-namespace 
+namespace
 {
-  using namespace gris;
-  const auto filename = "D:/teaching/GDV_2/gdv2-SoSe19/Uebungsblaetter/04_Praxisuebung/Framework/data/neghip.raw";
+	using namespace gris;
+	const auto filename = "C:/Users/Moritz/Documents/GDV2/Framework/data/neghip.raw";
 }
 
 int main(int argc, char **argv)
 {
-  int wSizeH = 600;
-  int wSizeW = 400;
-  glutInit(&argc, argv);
-  glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
-  glutInitWindowPosition(200,200);
-  glutInitWindowSize(wSizeH,wSizeW);
-  glutCreateWindow("Volume Visualization");  
-  glutIgnoreKeyRepeat(1);
-  glutKeyboardFunc(keyPressed);
-  glutMouseFunc(mousePressed);
-  glutMotionFunc(mouseMoved);  
-  glutDisplayFunc(renderScene);
-  glutReshapeFunc(changeSize);  
-  initialize(filename);
-  glutMainLoop();  
-  return 0;
+	std::cout << "main" << std::endl;
+	//int wSizeH = 600;
+	//int wSizeW = 400;
+	//glutInit(&argc, argv);
+	//glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+	//glutInitWindowPosition(200, 200);
+	//glutInitWindowSize(wSizeH, wSizeW);
+	//glutCreateWindow("Volume Visualization");
+	//glutIgnoreKeyRepeat(1);
+	//glutKeyboardFunc(keyPressed);
+	//glutMouseFunc(mousePressed);
+	//glutMotionFunc(mouseMoved);
+	//glutDisplayFunc(renderScene);
+	//glutReshapeFunc(changeSize);
+	initialize(filename);
+	VolumeVisualization::computeMesh(0.3);
+	//glutMainLoop();
+	return 0;
 }
