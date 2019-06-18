@@ -41,6 +41,7 @@ namespace gris
 		//TODO
 		std::cout << "compute mesh" << std::endl;
 		auto vertices = mesh.getVertices();
+
 		//ggf. order tauschen => speicher zugriffs effizienz
 		for (int x = 0; x < dimension.x; x++) {
 			for (int y = 0; y < dimension.y; y++) {
@@ -74,9 +75,15 @@ namespace gris
 					cube.p[7].set(x, y + 1, z + 1);
 
 					MC_TRIANGLE* triangle;
-					Polygonise(cube, isovalue, triangle);
-					//eig. sollte hier jetzt der pushback kommen aber geht nicht .... 
-					//vertices.push_back(triangle->p());
+					auto numtriangles = Polygonise(cube, isovalue, triangle);
+
+					for (int i = 0; i < numtriangles; i++) {
+						mesh.getVertices().push_back(*triangle[i].p);
+						//??? nicht was ich als dreiecke speichern würde???
+						mesh.getTriangles().push_back(Vec3i(x, y, z));
+						// sind g schon die normalen?
+						mesh.getNormals().push_back(*triangle[0].g);
+					}
 
 				}
 			}
