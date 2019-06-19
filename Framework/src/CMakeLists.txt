@@ -10,6 +10,14 @@ set(Includes
 	include/VolumeVisualization.h
 )
 
+file(GLOB_RECURSE ${PROJECT_NAME}_DATA "data/*.raw")
+
+file(COPY Data DESTINATION /)
+
+file(COPY "freeglut.dll" DESTINATION /)
+
+source_group(Data FILES ${${PROJECT_NAME}_DATA})
+
 set(Sources
 	main.cpp
 	rendering.cpp
@@ -22,6 +30,7 @@ set(Sources
 add_executable(${PROJECT_NAME}
 	${Includes}
 	${Sources}
+	${${PROJECT_NAME}_DATA}
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC

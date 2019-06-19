@@ -19,8 +19,13 @@
 
 namespace
 {
+<<<<<<< HEAD
+  using namespace gris;
+  const auto filename = "Data/neghip.raw";
+=======
 	using namespace gris;
 	const auto filename = "C:/Users/Moritz/Documents/GDV2/Framework/data/neghip.raw";
+>>>>>>> 3ec379967f0d27a68b4be038ae7682cd128711e2
 }
 
 int main(int argc, char **argv)
