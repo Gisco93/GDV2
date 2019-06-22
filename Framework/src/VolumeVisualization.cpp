@@ -34,6 +34,23 @@ namespace gris
 		}
 	}
 
+	void VolumeVisualization::generateBarthSextic(int dimXYZ, int spacingXYZ, float phi, float w) {
+		spacing.x = spacingXYZ; spacing.y = spacingXYZ; spacing.z = spacingXYZ;
+		dimension.x = dimXYZ; dimension.y = dimXYZ; dimension.z = dimXYZ;
+		volumedata.clear();
+		volumedata.resize(dimXYZ*dimXYZ*dimXYZ);
+
+		for (int x = 0; x < dimXYZ; x++) {
+			for (int y = 0; y < dimXYZ; y++) {
+				for (int z = 0; z < dimXYZ; z++) {
+					volumedata[x + y * dimXYZ + z * dimXYZ * dimXYZ] =
+						4 * (phi*phi*x*x - y*y)*(phi*phi*y*y - z*z)*(phi*phi*z*z - x*x) -
+						(1 + 2 * phi)*(x*x + y*y + z*z - w*w)*(x*x + y*y + z*z - w*w)*w*w;
+				}
+			}
+		}
+	}
+
 	/**
 	*/
 	void VolumeVisualization::computeMesh(float isovalue)

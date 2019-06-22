@@ -50,6 +50,7 @@ namespace gris
       void computeMesh(float isovalue);
 
 	  float VolumeVisualization::getVolumeData(int x, int y, int z);
+	  void VolumeVisualization::generateBarthSextic(int dimXYZ, int spacingXYZ, float phi, float w);
 
       // Given a grid cell and an isolevel, calculate the triangular
       //  facets required to represent the isosurface through the cell.
