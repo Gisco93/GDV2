@@ -5,7 +5,7 @@
 namespace gris
 {
   // initialize OpenGL
-  void initialize(const std::string& filename);
+  void initialize(const std::string& filename, int fileDim);
   void changeSize(int w, int h);
   
   // Rendering

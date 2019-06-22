@@ -20,7 +20,10 @@
 namespace
 {
   using namespace gris;
+  //const auto filename = "Data/bonsai.raw";
+  //const auto filesize = 256;
   const auto filename = "Data/neghip.raw";
+  const auto filesize = 64;
 }
 
 int main(int argc, char **argv)
@@ -39,7 +42,7 @@ int main(int argc, char **argv)
 	glutMotionFunc(mouseMoved);
 	glutDisplayFunc(renderScene);
 	glutReshapeFunc(changeSize);
-	initialize(filename);
+	initialize(filename, filesize);
 	//VolumeVisualization::computeMesh(0.3);
 	glutMainLoop();
 	return 0;

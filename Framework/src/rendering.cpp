@@ -30,7 +30,7 @@ namespace
 
 namespace gris
 {
-  void initialize(const std::string& filename)
+  void initialize(const std::string& filename, int fileDim)
   {
     glClearColor(1.0,1.0,1.0,0.0);
     // enable depth buffer
@@ -41,8 +41,9 @@ namespace gris
     changeSize(wSizeH,wSizeW);
     // load a volume data set
     std::ifstream vin(filename, std::ios::binary);  
-    volumevis.loadRAW(vin,64,64,64);
-	volumevis.generateBarthSextic(24, 1, 1, 1);
+    //volumevis.loadRAW(vin,64,64,64);
+	volumevis.loadRAW(vin, fileDim, fileDim, fileDim);
+	//volumevis.generateBarthSextic(24, 1, 1, 1);
     // cout
     std::cout << "(Simple) Volume Data Visualization\n";
     std::cout << "Usage:\nesc: exit program\n  -: decrease threshold (isovalue)\n  +: increase threshold (isovalue) \n  s: save Mesh to .ply File\n \n";
@@ -229,6 +230,7 @@ namespace gris
 	  glBegin(GL_TRIANGLES);
 	  Vec3f v;
 	  glColor3f(1.0f, 0.0f, 0.0f); 
+	  std::cout << (*mesh).getTriangles().size() << "\n";
 	  for (int i = 0; i < (*mesh).getTriangles().size(); i++) {
 		  v = (*mesh).getVertices().at(i*3 +0);
 		  //std::cout << "V: " << v.x << ", " << v.y << ", " << v.z << "; ";
