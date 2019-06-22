@@ -46,6 +46,7 @@ namespace gris
 					volumedata[x + y * dimXYZ + z * dimXYZ * dimXYZ] =
 						4 * (phi*phi*x*x - y*y)*(phi*phi*y*y - z*z)*(phi*phi*z*z - x*x) -
 						(1 + 2 * phi)*(x*x + y*y + z*z - w*w)*(x*x + y*y + z*z - w*w)*w*w;
+					//std::cout << volumedata[x + y * dimXYZ + z * dimXYZ * dimXYZ] << "\n";
 				}
 			}
 		}

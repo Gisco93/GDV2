@@ -44,6 +44,7 @@ namespace gris
     //volumevis.loadRAW(vin,64,64,64);
 	volumevis.loadRAW(vin, fileDim, fileDim, fileDim);
 	//volumevis.generateBarthSextic(24, 1, 0.5*(1+sqrt(5)), 0.1);
+	volumevis.computeMesh(isovalue);
     // cout
     std::cout << "(Simple) Volume Data Visualization\n";
     std::cout << "Usage:\nesc: exit program\n  -: decrease threshold (isovalue)\n  +: increase threshold (isovalue) \n  s: save Mesh to .ply File\n \n";
@@ -224,32 +225,23 @@ namespace gris
 	  glScalef(scaleFac, scaleFac, scaleFac);
 	  glPointSize(2.0);
     //TODO
-	  volumevis.computeMesh(isovalue);
+	  
 	  TriangleMesh* mesh = volumevis.getMesh();
 
 	  glBegin(GL_TRIANGLES);
 	  Vec3f v;
 	  glColor3f(1.0f, 0.0f, 0.0f); 
-	  std::cout << (*mesh).getTriangles().size() << "\n";
+	  //std::cout << (*mesh).getTriangles().size() << "\n";
 	  for (int i = 0; i < (*mesh).getTriangles().size(); i++) {
 		  v = (*mesh).getVertices().at(i*3 +0);
-		  //std::cout << "V: " << v.x << ", " << v.y << ", " << v.z << "; ";
 		  glVertex3f(v.x, v.y, v.z);
 		  v = (*mesh).getVertices().at(i * 3 + 1);
-		  //std::cout << "V: " << v.x << ", " << v.y << ", " << v.z << "; ";
 		  glVertex3f(v.x, v.y, v.z);
 		  v = (*mesh).getVertices().at(i * 3 + 2);
-		  //std::cout << "V: " << v.x << ", " << v.y << ", " << v.z << "; ";
 		  glVertex3f(v.x, v.y, v.z);
 	  }
-	  /*glColor3f(0.0f, 0.0f, 1.0f); 
-	  glVertex3f(0, 0, 0);
-	  glColor3f(0.0f, 1.0f, 0.0f);
-	  glVertex3f(10, 10, 0);
-	  glColor3f(1.0f, 0.0f, 0.0f);
-	  glVertex3f(10, 0, 0);*/
 	  glEnd();
-	  (*mesh).clear();
+	  //(*mesh).clear();
 
   }
 }
