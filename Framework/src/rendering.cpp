@@ -232,14 +232,16 @@ namespace gris
 
 	  glBegin(GL_TRIANGLES);
 	  Vec3f v;
-	  glColor3f(1.0f, 0.0f, 0.0f); 
 	  //std::cout << (*mesh).getTriangles().size() << "\n";
 	  for (int i = 0; i < (*mesh).getTriangles().size(); i++) {
 		  v = (*mesh).getVertices().at(i*3 +0);
+		  glColor3f(v.x/dimMax, v.y / dimMax, v.z / dimMax);
 		  glVertex3f(v.x, v.y, v.z);
 		  v = (*mesh).getVertices().at(i * 3 + 1);
+		  glColor3f(v.x / dimMax, v.y / dimMax, v.z / dimMax);
 		  glVertex3f(v.x, v.y, v.z);
 		  v = (*mesh).getVertices().at(i * 3 + 2);
+		  glColor3f(v.x / dimMax, v.y / dimMax, v.z / dimMax);
 		  glVertex3f(v.x, v.y, v.z);
 	  }
 	  glEnd();
