@@ -34,7 +34,7 @@ namespace gris
 		}
 	}
 
-	void VolumeVisualization::generateBarthSextic(int dimXYZ, int spacingXYZ, float phi, float w) {
+	void VolumeVisualization::generateBarthSextic(int dimXYZ, int spacingXYZ, float scale, float phi, float w) {
 		spacing.x = spacingXYZ; spacing.y = spacingXYZ; spacing.z = spacingXYZ;
 		dimension.x = dimXYZ; dimension.y = dimXYZ; dimension.z = dimXYZ;
 		volumedata.clear();
@@ -43,9 +43,10 @@ namespace gris
 		for (int x = 0; x < dimXYZ; x++) {
 			for (int y = 0; y < dimXYZ; y++) {
 				for (int z = 0; z < dimXYZ; z++) {
+					float locX = (x-dimXYZ/2)*scale; float locY = (y-dimXYZ/2)*scale; float locZ = (z-dimXYZ/2)*scale;
 					volumedata[x + y * dimXYZ + z * dimXYZ * dimXYZ] =
-						4 * (phi*phi*x*x - y*y)*(phi*phi*y*y - z*z)*(phi*phi*z*z - x*x) -
-						(1 + 2 * phi)*(x*x + y*y + z*z - w*w)*(x*x + y*y + z*z - w*w)*w*w;
+						4 * (phi*phi*locX*locX - locY*locY)*(phi*phi*locY*locY - locZ*locZ)*(phi*phi*locZ*locZ - locX*locX) -
+						(1 + 2 * phi)*(locX*locX + locY*locY + locZ*locZ - w*w)*(locX*locX + locY*locY + locZ*locZ - w*w)*w*w;
 					//std::cout << volumedata[x + y * dimXYZ + z * dimXYZ * dimXYZ] << "\n";
 				}
 			}

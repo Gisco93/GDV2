@@ -43,7 +43,7 @@ namespace gris
     std::ifstream vin(filename, std::ios::binary);  
     //volumevis.loadRAW(vin,64,64,64);
 	volumevis.loadRAW(vin, fileDim, fileDim, fileDim);
-	//volumevis.generateBarthSextic(48, 1, 0.5*(1+sqrt(5)), 1);
+	volumevis.generateBarthSextic(48, 1, 0.1, 0.5*(1+sqrt(5)), 1);
 	volumevis.computeMesh(isovalue);
     // cout
     std::cout << "(Simple) Volume Data Visualization\n";
