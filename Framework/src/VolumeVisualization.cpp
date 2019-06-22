@@ -43,9 +43,9 @@ namespace gris
 		auto vertices = mesh.getVertices();
 
 		//ggf. order tauschen => speicher zugriffs effizienz
-		for (int x = 0; x < dimension.x; x++) {
-			for (int y = 0; y < dimension.y; y++) {
-				for (int z = 0; z < dimension.z; z++) {
+		for (int x = 0; x < dimension.x-1; x++) {
+			for (int y = 0; y < dimension.y-1; y++) {
+				for (int z = 0; z < dimension.z-1; z++) {
 					//x,y,z indexing with x being slice direction... may needs change to 
 					//volumedata[x * dimension.y * dimension.z + y * dimension.z + z];
 					GRIDCELL cube;// = new GRIDCELL;
@@ -74,15 +74,16 @@ namespace gris
 					cube.val[7] = volumedata[x, y + 1, z + 1];
 					cube.p[7].set(x, y + 1, z + 1);
 
-					MC_TRIANGLE* triangle;
-					auto numtriangles = Polygonise(cube, isovalue, triangle);
+					MC_TRIANGLE* triangles;
+					auto numtriangles = Polygonise(cube, isovalue, triangles);
 
 					for (int i = 0; i < numtriangles; i++) {
-						mesh.getVertices().push_back(*triangle[i].p);
+						mesh.getVertices().push_back(*triangles[i].p);
 						//??? nicht was ich als dreiecke speichern würde???
 						mesh.getTriangles().push_back(Vec3i(x, y, z));
-						// sind g schon die normalen?
-						mesh.getNormals().push_back(*triangle[0].g);
+						// sind l
+						//g schon die normalen?
+						mesh.getNormals().push_back(*triangles[0].g);
 					}
 
 				}
