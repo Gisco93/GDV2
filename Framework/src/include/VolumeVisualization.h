@@ -49,6 +49,8 @@ namespace gris
       void loadRAW(std::istream& in, int dimX, int dimY, int dimZ, float dx=1, float dy=1, float dz=1);
       void computeMesh(float isovalue);
 
+	  float VolumeVisualization::getVolumeData(int x, int y, int z);
+
       // Given a grid cell and an isolevel, calculate the triangular
       //  facets required to represent the isosurface through the cell.
       // Return the number of triangular facets, the array "triangles"

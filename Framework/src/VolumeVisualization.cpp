@@ -43,51 +43,57 @@ namespace gris
 		auto vertices = mesh.getVertices();
 
 		//ggf. order tauschen => speicher zugriffs effizienz
-		for (int x = 0; x < dimension.x; x++) {
-			for (int y = 0; y < dimension.y; y++) {
-				for (int z = 0; z < dimension.z; z++) {
+		for (int x = 0; x < dimension.x-1; x++) {
+			for (int y = 0; y < dimension.y-1; y++) {
+				for (int z = 0; z < dimension.z-1; z++) {
 					//x,y,z indexing with x being slice direction... may needs change to 
 					//volumedata[x * dimension.y * dimension.z + y * dimension.z + z];
-					GRIDCELL cube;// = new GRIDCELL;
+					GRIDCELL cube;//= new GRIDCELL;
 					// on unit Cube: 0,0,0;|0
-					cube.val[0] = volumedata[x, y, z];
+					cube.val[0] = getVolumeData(x, y, z);
 					cube.p[0].set(x, y, z);
 					// 1,0,0 |1
-					cube.val[1] = volumedata[x + 1, y, z];
+					cube.val[1] = getVolumeData(x + 1, y, z);
 					cube.p[1].set(x + 1, y, z);
 					// 1,0,1 |2
-					cube.val[2] = volumedata[x + 1, y, z + 1];
+					cube.val[2] = getVolumeData(x + 1, y, z + 1);
 					cube.p[2].set(x + 1, y, z + 1);
 					// 0,0,1 |3
-					cube.val[3] = volumedata[x, y, z + 1];
+					cube.val[3] = getVolumeData(x, y, z + 1);
 					cube.p[3].set(x, y, z + 1);
 					// 0,1,0 |4
-					cube.val[4] = volumedata[x, y + 1, z];
+					cube.val[4] = getVolumeData(x, y + 1, z);
 					cube.p[4].set(x, y + 1, z);
 					// 1,1,0 |5
-					cube.val[5] = volumedata[x + 1, y + 1, z];
+					cube.val[5] = getVolumeData(x + 1, y + 1, z);
 					cube.p[5].set(x + 1, y + 1, z);
 					// 1,1,1 |6
-					cube.val[6] = volumedata[x + 1, y + 1, z + 1];
+					cube.val[6] = getVolumeData(x + 1, y + 1, z + 1);
 					cube.p[6].set(x + 1, y + 1, z + 1);
 					// 0,1,1 |7
-					cube.val[7] = volumedata[x, y + 1, z + 1];
+					cube.val[7] = getVolumeData(x, y + 1, z + 1);
 					cube.p[7].set(x, y + 1, z + 1);
 
-					MC_TRIANGLE* triangle;
-					auto numtriangles = Polygonise(cube, isovalue, triangle);
+					MC_TRIANGLE triangles[14];
+					auto numtriangles = Polygonise(cube, isovalue, triangles);
 
 					for (int i = 0; i < numtriangles; i++) {
-						mesh.getVertices().push_back(*triangle[i].p);
+						// VertexInterp muss hier benutzt werden zum erzeugen der vertices (3 pro triangle)
+						mesh.getVertices().push_back(*triangles[i].p);
 						//??? nicht was ich als dreiecke speichern würde???
 						mesh.getTriangles().push_back(Vec3i(x, y, z));
 						// sind g schon die normalen?
-						mesh.getNormals().push_back(*triangle[0].g);
+						mesh.getNormals().push_back(*triangles[0].g);
 					}
 
 				}
 			}
 		}
+	}
+
+	float VolumeVisualization::getVolumeData(int x, int y, int z) {
+		int pos = x * dimension.y * dimension.z + y * dimension.z + z;
+		return volumedata[pos];
 	}
 
 	/**

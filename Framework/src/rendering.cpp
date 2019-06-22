@@ -82,6 +82,7 @@ namespace gris
     glRotatef(camAngleY,1,0,0); // window y axis rotates around x 
                                 // draw scene
     drawPoints(isovalue);
+	drawMesh(isovalue);
     // swap Buffers
     glutSwapBuffers();
   }
@@ -212,6 +213,19 @@ namespace gris
   {
 
     //TODO
+	  volumevis.computeMesh(isovalue);
+	  TriangleMesh* mesh = volumevis.getMesh();
+	  glBegin(GL_TRIANGLES);
+	  Vec3f v;
+	  for (int i = 0; i < (*mesh).getTriangles().size(); i++) {
+		  /*v = (*mesh).getVertices().at(i * 3 + 0);
+		  glVertex3f(v.x, v.y, v.z);
+		  v = (*mesh).getVertices().at(i * 3 + 1);
+		  glVertex3f(v.x, v.y, v.z);
+		  v = (*mesh).getVertices().at(i * 3 + 2);
+		  glVertex3f(v.x, v.y, v.z);*/
+	  }
+	  glEnd();
 
   }
 }
