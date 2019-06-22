@@ -74,14 +74,16 @@ namespace gris
 					cube.val[7] = getVolumeData(x, y + 1, z + 1);
 					cube.p[7].set(x, y + 1, z + 1);
 
-					MC_TRIANGLE triangles[14];
+					MC_TRIANGLE triangles[5];
 					auto numtriangles = Polygonise(cube, isovalue, triangles);
 
 					for (int i = 0; i < numtriangles; i++) {
 						// VertexInterp muss hier benutzt werden zum erzeugen der vertices (3 pro triangle)
-						mesh.getVertices().push_back(*triangles[i].p);
+						mesh.getVertices().push_back(triangles[i].p[0]);
+						mesh.getVertices().push_back(triangles[i].p[1]);
+						mesh.getVertices().push_back(triangles[i].p[2]);
 						//??? nicht was ich als dreiecke speichern würde???
-						mesh.getTriangles().push_back(Vec3i(x, y, z));
+						mesh.getTriangles().push_back(Vec3i(3*i, 3*i+1, 3*i+2));
 						// sind g schon die normalen?
 						mesh.getNormals().push_back(*triangles[0].g);
 					}
@@ -92,7 +94,7 @@ namespace gris
 	}
 
 	float VolumeVisualization::getVolumeData(int x, int y, int z) {
-		int pos = x * dimension.y * dimension.z + y * dimension.z + z;
+		int pos = x  +  dimension.x * y  + dimension.x* dimension.y * z;
 		return volumedata[pos];
 	}
 

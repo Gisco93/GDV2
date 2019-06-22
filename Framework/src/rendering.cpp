@@ -81,7 +81,7 @@ namespace gris
     glRotatef(camAngleX,0,1,0); // window x axis rotates around up vector
     glRotatef(camAngleY,1,0,0); // window y axis rotates around x 
                                 // draw scene
-    drawPoints(isovalue);
+    //drawPoints(isovalue);
 	drawMesh(isovalue);
     // swap Buffers
     glutSwapBuffers();
@@ -212,19 +212,39 @@ namespace gris
   void drawMesh(float isovalue)
   {
 
+	  Vec3i* dimension = volumevis.getDimension();
+	  Vec3f* spacing = volumevis.getSpacing();
+	  std::vector<float>* volumeData = volumevis.getVolumeData();
+	  // first, find largest dimension
+	  int dimMax = std::max(std::max(spacing->x*dimension->x, spacing->y*dimension->y), spacing->z*dimension->z);
+	  // now, scale such that largest edge of our cube is one unit ! 
+	  float scaleFac = 1.0f / dimMax;
+	  glScalef(scaleFac, scaleFac, scaleFac);
+	  glPointSize(2.0);
     //TODO
 	  volumevis.computeMesh(isovalue);
 	  TriangleMesh* mesh = volumevis.getMesh();
+
 	  glBegin(GL_TRIANGLES);
 	  Vec3f v;
+	  glColor3f(1.0f, 0.0f, 0.0f); 
 	  for (int i = 0; i < (*mesh).getTriangles().size(); i++) {
-		  /*v = (*mesh).getVertices().at(i * 3 + 0);
+		  v = (*mesh).getVertices().at(i*3 +0);
+		  //std::cout << "V: " << v.x << ", " << v.y << ", " << v.z << "; ";
 		  glVertex3f(v.x, v.y, v.z);
 		  v = (*mesh).getVertices().at(i * 3 + 1);
+		  //std::cout << "V: " << v.x << ", " << v.y << ", " << v.z << "; ";
 		  glVertex3f(v.x, v.y, v.z);
 		  v = (*mesh).getVertices().at(i * 3 + 2);
-		  glVertex3f(v.x, v.y, v.z);*/
+		  //std::cout << "V: " << v.x << ", " << v.y << ", " << v.z << "; ";
+		  glVertex3f(v.x, v.y, v.z);
 	  }
+	  /*glColor3f(0.0f, 0.0f, 1.0f); 
+	  glVertex3f(0, 0, 0);
+	  glColor3f(0.0f, 1.0f, 0.0f);
+	  glVertex3f(10, 10, 0);
+	  glColor3f(1.0f, 0.0f, 0.0f);
+	  glVertex3f(10, 0, 0);*/
 	  glEnd();
 
   }
