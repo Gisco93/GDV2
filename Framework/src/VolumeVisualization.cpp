@@ -34,6 +34,25 @@ namespace gris
 		}
 	}
 
+	void VolumeVisualization::generateBarthSextic(int dimXYZ, int spacingXYZ, float scale, float phi, float w) {
+		spacing.x = spacingXYZ; spacing.y = spacingXYZ; spacing.z = spacingXYZ;
+		dimension.x = dimXYZ; dimension.y = dimXYZ; dimension.z = dimXYZ;
+		volumedata.clear();
+		volumedata.resize(dimXYZ*dimXYZ*dimXYZ);
+
+		for (int x = 0; x < dimXYZ; x++) {
+			for (int y = 0; y < dimXYZ; y++) {
+				for (int z = 0; z < dimXYZ; z++) {
+					float locX = (x-dimXYZ/2)*scale; float locY = (y-dimXYZ/2)*scale; float locZ = (z-dimXYZ/2)*scale;
+					volumedata[x + y * dimXYZ + z * dimXYZ * dimXYZ] =
+						4 * (phi*phi*locX*locX - locY*locY)*(phi*phi*locY*locY - locZ*locZ)*(phi*phi*locZ*locZ - locX*locX) -
+						(1 + 2 * phi)*(locX*locX + locY*locY + locZ*locZ - w*w)*(locX*locX + locY*locY + locZ*locZ - w*w)*w*w;
+					//std::cout << volumedata[x + y * dimXYZ + z * dimXYZ * dimXYZ] << "\n";
+				}
+			}
+		}
+	}
+
 	/**
 	*/
 	void VolumeVisualization::computeMesh(float isovalue)
@@ -48,47 +67,54 @@ namespace gris
 				for (int z = 0; z < dimension.z-1; z++) {
 					//x,y,z indexing with x being slice direction... may needs change to 
 					//volumedata[x * dimension.y * dimension.z + y * dimension.z + z];
-					GRIDCELL cube;// = new GRIDCELL;
+					GRIDCELL cube;//= new GRIDCELL;
 					// on unit Cube: 0,0,0;|0
-					cube.val[0] = volumedata[x, y, z];
+					cube.val[0] = getVolumeData(x, y, z);
 					cube.p[0].set(x, y, z);
 					// 1,0,0 |1
-					cube.val[1] = volumedata[x + 1, y, z];
+					cube.val[1] = getVolumeData(x + 1, y, z);
 					cube.p[1].set(x + 1, y, z);
 					// 1,0,1 |2
-					cube.val[2] = volumedata[x + 1, y, z + 1];
+					cube.val[2] = getVolumeData(x + 1, y, z + 1);
 					cube.p[2].set(x + 1, y, z + 1);
 					// 0,0,1 |3
-					cube.val[3] = volumedata[x, y, z + 1];
+					cube.val[3] = getVolumeData(x, y, z + 1);
 					cube.p[3].set(x, y, z + 1);
 					// 0,1,0 |4
-					cube.val[4] = volumedata[x, y + 1, z];
+					cube.val[4] = getVolumeData(x, y + 1, z);
 					cube.p[4].set(x, y + 1, z);
 					// 1,1,0 |5
-					cube.val[5] = volumedata[x + 1, y + 1, z];
+					cube.val[5] = getVolumeData(x + 1, y + 1, z);
 					cube.p[5].set(x + 1, y + 1, z);
 					// 1,1,1 |6
-					cube.val[6] = volumedata[x + 1, y + 1, z + 1];
+					cube.val[6] = getVolumeData(x + 1, y + 1, z + 1);
 					cube.p[6].set(x + 1, y + 1, z + 1);
 					// 0,1,1 |7
-					cube.val[7] = volumedata[x, y + 1, z + 1];
+					cube.val[7] = getVolumeData(x, y + 1, z + 1);
 					cube.p[7].set(x, y + 1, z + 1);
 
-					MC_TRIANGLE* triangles;
+					MC_TRIANGLE triangles[5];
 					auto numtriangles = Polygonise(cube, isovalue, triangles);
 
 					for (int i = 0; i < numtriangles; i++) {
-						mesh.getVertices().push_back(*triangles[i].p);
+						// VertexInterp muss hier benutzt werden zum erzeugen der vertices (3 pro triangle)
+						mesh.getVertices().push_back(triangles[i].p[0]);
+						mesh.getVertices().push_back(triangles[i].p[1]);
+						mesh.getVertices().push_back(triangles[i].p[2]);
 						//??? nicht was ich als dreiecke speichern würde???
-						mesh.getTriangles().push_back(Vec3i(x, y, z));
-						// sind l
-						//g schon die normalen?
+						mesh.getTriangles().push_back(Vec3i(3*i, 3*i+1, 3*i+2));
+						// sind g schon die normalen?
 						mesh.getNormals().push_back(*triangles[0].g);
 					}
 
 				}
 			}
 		}
+	}
+
+	float VolumeVisualization::getVolumeData(int x, int y, int z) {
+		int pos = x  +  dimension.x * y  + dimension.x* dimension.y * z;
+		return volumedata[pos];
 	}
 
 	/**

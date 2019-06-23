@@ -30,7 +30,7 @@ namespace
 
 namespace gris
 {
-  void initialize(const std::string& filename)
+  void initialize(const std::string& filename, int fileDim)
   {
     glClearColor(1.0,1.0,1.0,0.0);
     // enable depth buffer
@@ -41,7 +41,10 @@ namespace gris
     changeSize(wSizeH,wSizeW);
     // load a volume data set
     std::ifstream vin(filename, std::ios::binary);  
-    volumevis.loadRAW(vin,64,64,64);
+    //volumevis.loadRAW(vin,64,64,64);
+	volumevis.loadRAW(vin, fileDim, fileDim, fileDim);
+	volumevis.generateBarthSextic(48, 1, 0.1, 0.5*(1+sqrt(5)), 1);
+	volumevis.computeMesh(isovalue);
     // cout
     std::cout << "(Simple) Volume Data Visualization\n";
     std::cout << "Usage:\nesc: exit program\n  -: decrease threshold (isovalue)\n  +: increase threshold (isovalue) \n  s: save Mesh to .ply File\n \n";
@@ -81,7 +84,8 @@ namespace gris
     glRotatef(camAngleX,0,1,0); // window x axis rotates around up vector
     glRotatef(camAngleY,1,0,0); // window y axis rotates around x 
                                 // draw scene
-    drawPoints(isovalue);
+    //drawPoints(isovalue);
+	drawMesh(isovalue);
     // swap Buffers
     glutSwapBuffers();
   }
@@ -118,6 +122,8 @@ namespace gris
       if (isovalue > 1) isovalue = 1;
       break;
     }
+	(*volumevis.getMesh()).clear();
+	volumevis.computeMesh(isovalue);
     glutPostRedisplay();
   }
 
@@ -211,7 +217,35 @@ namespace gris
   void drawMesh(float isovalue)
   {
 
+	  Vec3i* dimension = volumevis.getDimension();
+	  Vec3f* spacing = volumevis.getSpacing();
+	  std::vector<float>* volumeData = volumevis.getVolumeData();
+	  // first, find largest dimension
+	  int dimMax = std::max(std::max(spacing->x*dimension->x, spacing->y*dimension->y), spacing->z*dimension->z);
+	  // now, scale such that largest edge of our cube is one unit ! 
+	  float scaleFac = 1.0f / dimMax;
+	  glScalef(scaleFac, scaleFac, scaleFac);
+	  glPointSize(2.0);
     //TODO
+	  
+	  TriangleMesh* mesh = volumevis.getMesh();
+
+	  glBegin(GL_TRIANGLES);
+	  Vec3f v;
+	  //std::cout << (*mesh).getTriangles().size() << "\n";
+	  for (int i = 0; i < (*mesh).getTriangles().size(); i++) {
+		  v = (*mesh).getVertices().at(i*3 +0);
+		  glColor3f(v.x/dimMax, v.y / dimMax, v.z / dimMax);
+		  glVertex3f(v.x, v.y, v.z);
+		  v = (*mesh).getVertices().at(i * 3 + 1);
+		  glColor3f(v.x / dimMax, v.y / dimMax, v.z / dimMax);
+		  glVertex3f(v.x, v.y, v.z);
+		  v = (*mesh).getVertices().at(i * 3 + 2);
+		  glColor3f(v.x / dimMax, v.y / dimMax, v.z / dimMax);
+		  glVertex3f(v.x, v.y, v.z);
+	  }
+	  glEnd();
+	  //(*mesh).clear();
 
   }
 }
