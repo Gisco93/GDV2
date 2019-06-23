@@ -104,7 +104,10 @@ namespace gris
 						//??? nicht was ich als dreiecke speichern würde???
 						mesh.getTriangles().push_back(Vec3i(3*i, 3*i+1, 3*i+2));
 						// sind g schon die normalen?
-						mesh.getNormals().push_back(crossProduct(triangles[i].p[1]- triangles[i].p[0], triangles[i].p[2]- triangles[i].p[0]));
+						//mesh.getNormals().push_back(crossProduct(triangles[i].p[1]- triangles[i].p[0], triangles[i].p[2]- triangles[i].p[0]));
+						Vec3f normal = (triangles[i].p[1] - triangles[i].p[0]) ^ (triangles[i].p[2] - triangles[i].p[0]);
+						normal.normalize();
+						mesh.getNormals().push_back(normal);
 					}
 
 				}

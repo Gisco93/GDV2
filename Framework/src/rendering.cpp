@@ -248,7 +248,7 @@ namespace gris
 		  glVertex3f(v.x, v.y, v.z);
 	  }
 	  glEnd();
-	  (*mesh).clear();
+	  //(*mesh).clear();
 
   }
 }
