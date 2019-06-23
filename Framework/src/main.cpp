@@ -32,7 +32,7 @@ int main(int argc, char **argv)
 	int wSizeH = 600;
 	int wSizeW = 400;
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA); 
 	glutInitWindowPosition(200, 200);
 	glutInitWindowSize(wSizeH, wSizeW);
 	glutCreateWindow("Volume Visualization");
@@ -43,7 +43,6 @@ int main(int argc, char **argv)
 	glutDisplayFunc(renderScene);
 	glutReshapeFunc(changeSize);
 	initialize(filename, filesize);
-	//VolumeVisualization::computeMesh(0.3);
 	glutMainLoop();
 	return 0;
 }

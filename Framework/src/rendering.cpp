@@ -43,7 +43,7 @@ namespace gris
     std::ifstream vin(filename, std::ios::binary);  
     //volumevis.loadRAW(vin,64,64,64);
 	volumevis.loadRAW(vin, fileDim, fileDim, fileDim);
-	volumevis.generateBarthSextic(48, 1, 0.1, 0.5*(1+sqrt(5)), 1);
+	//volumevis.generateBarthSextic(48, 1, 0.1, 0.5*(1+sqrt(5)), 1);
 	volumevis.computeMesh(isovalue);
     // cout
     std::cout << "(Simple) Volume Data Visualization\n";
@@ -185,7 +185,8 @@ namespace gris
     mouseX = x;
     mouseY = y;
     // redraw if mouse moved, since there is no idleFunc defined
-    glutPostRedisplay();
+
+	glutPostRedisplay();
   }
 
   void drawPoints(float isovalue)
@@ -232,20 +233,22 @@ namespace gris
 
 	  glBegin(GL_TRIANGLES);
 	  Vec3f v;
+	  Vec3f n;
 	  //std::cout << (*mesh).getTriangles().size() << "\n";
 	  for (int i = 0; i < (*mesh).getTriangles().size(); i++) {
 		  v = (*mesh).getVertices().at(i*3 +0);
-		  glColor3f(v.x/dimMax, v.y / dimMax, v.z / dimMax);
+		  n = (*mesh).getNormals().at(i);
+		  glColor3f(n.x, n.y , n.z );
 		  glVertex3f(v.x, v.y, v.z);
 		  v = (*mesh).getVertices().at(i * 3 + 1);
-		  glColor3f(v.x / dimMax, v.y / dimMax, v.z / dimMax);
+		  glColor3f(n.x , n.y, n.z);
 		  glVertex3f(v.x, v.y, v.z);
 		  v = (*mesh).getVertices().at(i * 3 + 2);
-		  glColor3f(v.x / dimMax, v.y / dimMax, v.z / dimMax);
+		  glColor3f(n.x , n.y , n.z );
 		  glVertex3f(v.x, v.y, v.z);
 	  }
 	  glEnd();
-	  //(*mesh).clear();
+	  (*mesh).clear();
 
   }
 }

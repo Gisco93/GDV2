@@ -64,6 +64,8 @@ namespace gris
       //  edge between two vertices, each with their own scalar value
       Vec3f VertexInterp(float isolevel, Vec3f p1, Vec3f p2, float valp1, float valp2);
 
+	  Vec3f crossProduct(Vec3f vector1, Vec3f vector2);
+
     private:
       typedef std::vector<float> VolumeData;
 

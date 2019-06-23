@@ -95,7 +95,7 @@ namespace gris
 
 					MC_TRIANGLE triangles[5];
 					auto numtriangles = Polygonise(cube, isovalue, triangles);
-
+					//std::cout << numtriangles << std::endl;
 					for (int i = 0; i < numtriangles; i++) {
 						// VertexInterp muss hier benutzt werden zum erzeugen der vertices (3 pro triangle)
 						mesh.getVertices().push_back(triangles[i].p[0]);
@@ -104,7 +104,7 @@ namespace gris
 						//??? nicht was ich als dreiecke speichern würde???
 						mesh.getTriangles().push_back(Vec3i(3*i, 3*i+1, 3*i+2));
 						// sind g schon die normalen?
-						mesh.getNormals().push_back(*triangles[0].g);
+						mesh.getNormals().push_back(crossProduct(triangles[i].p[1]- triangles[i].p[0], triangles[i].p[2]- triangles[i].p[0]));
 					}
 
 				}
@@ -202,5 +202,17 @@ namespace gris
 		p.y = p1.y + mu * (p2.y - p1.y);
 		p.z = p1.z + mu * (p2.z - p1.z);
 		return p;
+	}
+
+	Vec3f VolumeVisualization::crossProduct(Vec3f vector1, Vec3f vector2) {
+		Vec3f normalVector;
+
+		// Cross product. The normalVector contains the normal for the
+		// surface, which is perpendicular both to vector1 and vector2.
+		normalVector.x = vector1.y * vector2.z - vector1.z * vector2.y;
+		normalVector.y = vector1.z * vector2.x - vector1.x * vector2.z;
+		normalVector.z = vector1.x * vector2.y - vector1.y * vector2.x;
+
+		return normalVector;
 	}
 }
