@@ -1,4 +1,5 @@
 \newif\ifvimbug
+
 \vimbugfalse
 
 \ifvimbug
@@ -7,3 +8,18 @@
 
 
 \subsection{Splines auf Triangulierungen (5 Punkte)}
+Das Baryzentrum lässt sich durch das Arithmetisches Mittel der Eckpunkte ermitteln: $\overline{v} = \frac{1}{3} * (v_0 + v_1 + v_2)$\\
+
+Wir können also die $C^1$ Bedingung für die Koeffizienten von $T_2$ ($b_{ijk} := b_{ijk}^{T_0}$) ergibt:
+$$ \overline{b}_{111}^{T_2} = \lambda_0(v_2) b_{201} + \lambda_1(v_2) b_{111} + \lambda_2(v_2) b_{102} $$
+Dies stellt einfach ein Minidreieck innerhalb des Dreiecks mit gleichen Seitenverhältnissen da. Daraus Folgt für erste gesuchte Koeffizienten:
+$$b_{102} = \frac{1}{3} (b_{111} + b_{201} + \overline{b}_{111}^{T_2})$$
+Daraus lassen sich auch die Beziehung für die anderen gesuchten Koeffizienten herleiten $b_{102}^{T_1} = b_{012}^{T_0}$ und $b_{102}^{T_2} = b_{021}^{T_1}$.
+
+Jetzt benennen wir die gesuchten Koeffizienten folgender massen um ($x := b_{102}^{T_0} = b_{012}^{T_2}, y :=  b_{102}^{T_2}, z:=b_{102}^{T_1}$) um deren beziehung zu einander besser dazu stellen. Daraus ergibt nach der $C^1$ Bedingung über $T_0$ und $T_2$ für $y$ :
+$$ y = \lambda_0(v_2) x + \lambda_1(v_2) z + \lambda_2(v_2) \overline{v} $$
+ Daraus ergibt sich dann:
+$$\overline{v} = \frac{1}{3} (x + y + z)$$
+
+
+
