@@ -8,6 +8,61 @@
 
 \subsection{Bernstein-Bezier Dreiecke (6 Punkte)}
 \subsubsection{1.5 Punkte}
+Für $z_0$:
+$$ \lambda_0(z_0)= \frac{det(\begin{pmatrix}1 & 1 & 1\\ z_0 & v_1 & v_2\end{pmatrix})}{ det(\begin{pmatrix}1 & 1 & 1\\ v_0 & v_1 & v_2\end{pmatrix})} = \frac{0}{32} = 0$$
+$$ \lambda_1(z_0)= \frac{det(\begin{pmatrix}1 & 1 & 1\\ v_0 & z_0 & v_2\end{pmatrix})}{ det(\begin{pmatrix}1 & 1 & 1\\ v_0 & v_1 & v_2\end{pmatrix})} = \frac{24}{32} = \frac{3}{4}$$
+$$ \lambda_2(z_0)= \frac{det(\begin{pmatrix}1 & 1 & 1\\ v_0 & v_1 & z_0\end{pmatrix})}{ det(\begin{pmatrix}1 & 1 & 1\\ v_0 & v_1 & v_2\end{pmatrix})} = \frac{8}{32} =  \frac{2}{4}$$
+$B_{ijk}(z_0)$ wir für $z_0$ wie folgt berechnet $\frac{q!}{i!j!k!} \lambda_0^i\lambda_1^j\lambda_2^k$. Aus $\lambda_0=0$ er gibt sich:\\
+$$p(z_0)= B_{030}(z_0) b_{030} + B_{021}(z_0) b_{021} + B_{012}(z_0) b_{012} + B_{003}(z_0) b_{003} = \frac{27}{64} 13 +\frac{27}{64} 6 +\frac{9}{64} 2 + \frac{1}{64} 4 = \frac{535}{64} = 8.359375$$
+Daraus folgt: \\
+$$\chi_p(z_0) = \begin{pmatrix}3\\ 2\\ \frac{535}{64}\end{pmatrix}$$
+Für $z_1$:\\
+$$ \lambda_0(z_1)= \frac{det(\begin{pmatrix}1 & 1 & 1\\ z_1 & v_1 & v_2\end{pmatrix})}{ det(\begin{pmatrix}1 & 1 & 1\\ v_0 & v_1 & v_2\end{pmatrix})} = \frac{8}{32} = \frac{1}{4}$$
+$$ \lambda_1(z_1)= \frac{det(\begin{pmatrix}1 & 1 & 1\\ v_0 & z_1 & v_2\end{pmatrix})}{ det(\begin{pmatrix}1 & 1 & 1\\ v_0 & v_1 & v_2\end{pmatrix})} = \frac{8}{32} = \frac{1}{4}$$
+$$ \lambda_2(z_1)= \frac{det(\begin{pmatrix}1 & 1 & 1\\ v_0 & v_1 & z_1\end{pmatrix})}{ det(\begin{pmatrix}1 & 1 & 1\\ v_0 & v_1 & v_2\end{pmatrix})} = \frac{16}{32} = \frac{1}{2}$$
+$B_{ijk}(z_1)$ wir für $z_1$ wie folgt berechnet $\frac{q!}{i!j!k!} \lambda_0^i\lambda_1^j\lambda_2^k$. Es gibt sich:\\
+$$p(z_1) = \frac{1}{64} 8 +\frac{3}{64} 6 +\frac{6}{64} 4 + \frac{3}{64} 0 + \frac{12}{64} 6 + \frac{12}{64} 0 + \frac{1}{64} 13 + \frac{6}{64} 6 + \frac{12}{64} 2 + \frac{8}{64} 4 = \frac{227}{64}$$
+Daraus folgt: \\
+$$\chi_p(z_1) = \begin{pmatrix}1\\ 4\\ \frac{227}{64}\end{pmatrix}$$
+
 \subsubsection{1.5 Punkte}
+$$ \tilde{\lambda}_0(z_0)= \frac{det(\begin{pmatrix}1 & 1 & 1\\ z_0 & v_1 & z_0\end{pmatrix})}{ det(\begin{pmatrix}1 & 1 & 1\\ v_0 & v_1 & v_2\end{pmatrix})} = \frac{0}{32} = 0$$
+$$ \tilde{\lambda}_1(z_0)= \frac{det(\begin{pmatrix}1 & 1 & 1\\ v_0 & z_0 & z_0\end{pmatrix})}{ det(\begin{pmatrix}1 & 1 & 1\\ v_0 & v_1 & v_2\end{pmatrix})} = \frac{0}{32} = 0$$
+$$ \tilde{\lambda}_2(z_0)= \frac{det(\begin{pmatrix}1 & 1 & 1\\ v_0 & v_1 & z_0\end{pmatrix})}{ det(\begin{pmatrix}1 & 1 & 1\\ v_0 & v_1 & v_2\end{pmatrix})} = 1$$
+Daraus Folgt dass alle $\tilde{B}_{ijk} = 0$ wenn nicht $k=3$:\\
+$$\tilde{p}(z_0) = \tilde{B}_{003}(z_0) b_{003} = 4$$
+$$\tilde{\chi}_p(z_0) = \begin{pmatrix}3\\ 2\\ 4\end{pmatrix}$$
+\\
+$$ \hat{\lambda}_0(z_0)= \frac{det(\begin{pmatrix}1 & 1 & 1\\ z_0 & z_0 & v_2\end{pmatrix})}{ det(\begin{pmatrix}1 & 1 & 1\\ v_0 & v_1 & v_2\end{pmatrix})} = 0$$
+$$ \hat{\lambda}_1(z_0)= \frac{det(\begin{pmatrix}1 & 1 & 1\\ v_0 & z_0 & v_2\end{pmatrix})}{ det(\begin{pmatrix}1 & 1 & 1\\ v_0 & v_1 & v_2\end{pmatrix})} = 1$$
+$$ \hat{\lambda}_2(z_0)= \frac{det(\begin{pmatrix}1 & 1 & 1\\ v_0 & z_0 & z_0\end{pmatrix})}{ det(\begin{pmatrix}1 & 1 & 1\\ v_0 & v_1 & v_2\end{pmatrix})} = 0$$
+Daraus Folgt dass alle $\hat{B}_{ijk} = 0$ wenn nicht $j=3$:\\
+$$\hat{p}(z_0) = \hat{B}_{030}(z_0) b_{030} = 13$$
+$$\hat{\chi}_p(z_0) = \begin{pmatrix}3\\ 2\\ 13\end{pmatrix}$$
+\\
+$$ \lambda^*_0(z_0)= \frac{det(\begin{pmatrix}1 & 1 & 1\\ z_0 & v_1 & v_2\end{pmatrix})}{ det(\begin{pmatrix}1 & 1 & 1\\ v_0 & v_1 & v_2\end{pmatrix})} = 1$$
+$$ \lambda^*_1(z_0)= \frac{det(\begin{pmatrix}1 & 1 & 1\\ z_0 & z_0 & v_2\end{pmatrix})}{ det(\begin{pmatrix}1 & 1 & 1\\ v_0 & v_1 & v_2\end{pmatrix})} = 0$$
+$$ \lambda^*_2(z_0)= \frac{det(\begin{pmatrix}1 & 1 & 1\\ z_0 & v_1 & z_0\end{pmatrix})}{ det(\begin{pmatrix}1 & 1 & 1\\ v_0 & v_1 & v_2\end{pmatrix})} = 0$$
+Daraus Folgt dass alle $B^*_{ijk} = 0$ wenn nicht $i=3$:\\
+$$p^* (z_0) = B^*_{030}(z_0) b_{030} = 13$$
+$$\chi_p^* (z_0) = \begin{pmatrix}3\\ 2\\ 13\end{pmatrix}$$
 \subsubsection{1.5 Punkte}
+$$ \lambda_0(\tilde{v_2}) = \frac{1}{2}$$
+ $$ \lambda_1(\tilde{v_2})= 1$$
+$$ \lambda_2(\tilde{v_2}) = -\frac{1}{2}$$
+Durch die $C^0$ Bedingung:\\
+$$\tilde{b}_{300} = b_{300} = 8, \tilde{b}_{210} = b_{210} = 6, \tilde{b}_{120} = b_{120} = 0, \tilde{b}_{030} = b_{030} =13$$
+Die $C^1$ Bedingung gibt uns:\\
+$$\tilde{b}_{201} = 0.5 b_{300} + b_{210} - 0.5  b_{201} = 8$$
+$$\tilde{b}_{111} = 0.5 b_{210} + b_{120} - 0.5  b_{111} = 0$$
+$$\tilde{b}_{021} = 0.5 b_{120} + b_{030} - 0.5  b_{021} = 10$$
 \subsubsection{1.5 Punkte}
+Die Koeffizienten gegeben durch die $C^0$ Bedingung ändern sich nicht im Vergleich zu Aufgabenteil c). Die Änderung sind:\\
+$$ \lambda_0(\tilde{v_2}) = \frac{3}{2}$$
+ $$ \lambda_1(\tilde{v_2})= 0$$
+$$ \lambda_2(\tilde{v_2}) = -\frac{1}{2}$$
+
+Die $C^1$ Bedingung gibt uns:\\
+$$\tilde{b}_{201} = 1.5 b_{300}  - 0.5  b_{201} = 10$$
+$$\tilde{b}_{111} = 1.5 b_{210}  - 0.5  b_{111} = 6$$
+$$\tilde{b}_{021} = 1.5 b_{120}  - 0.5  b_{021} = -3$$
